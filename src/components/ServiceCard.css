@@ -22,7 +22,9 @@
 }
 
 .svc-card-icon {
-  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  color: var(--color-navy);
   margin-bottom: var(--space-2);
 }
 
@@ -74,9 +76,11 @@
 }
 
 .svc-row-icon {
-  font-size: 3.5rem;
-  text-align: center;
-  padding-top: var(--space-2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: var(--space-1);
+  color: var(--color-navy);
 }
 
 .svc-row-title {
@@ -95,6 +99,20 @@
 .svc-row-detail {
   color: var(--color-slate-dark);
   line-height: 1.75;
+}
+
+.svc-row-link {
+  display: inline-block;
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-gold);
+  letter-spacing: 0.02em;
+  transition: letter-spacing var(--duration-base);
+}
+
+.svc-row:hover .svc-row-link {
+  letter-spacing: 0.06em;
 }
 
 @media (max-width: 600px) {

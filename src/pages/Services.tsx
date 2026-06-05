@@ -25,8 +25,8 @@ export default function Services() {
             <span className="page-eyebrow">What We Handle</span>
             <h1 className="page-title">Every claim type. One team. Zero compromises.</h1>
             <p className="page-sub">
-              Florida homeowners face some of the most contentious insurance disputes in the country.
-              We specialize in every major claim type — and we know exactly how carriers try to minimize each one.
+              Michigan homeowners deserve a fair settlement. We specialize in every major claim type
+              — and we know exactly how carriers try to minimize each one.
             </p>
           </AnimatedSection>
         </div>
