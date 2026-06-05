@@ -1,0 +1,107 @@
+/* Card variant (used on Home preview grid) */
+.svc-card-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-cream-dark);
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base),
+    border-color var(--duration-base);
+}
+
+.svc-card-link:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-gold);
+}
+
+.svc-card-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-2);
+}
+
+.svc-card-title {
+  font-size: var(--text-lg);
+  color: var(--color-navy);
+}
+
+.svc-card-summary {
+  font-size: var(--text-sm);
+  color: var(--color-slate);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.svc-card-arrow {
+  font-size: var(--text-lg);
+  color: var(--color-gold);
+  margin-top: var(--space-2);
+  transition: transform var(--duration-base);
+  display: block;
+}
+
+.svc-card-link:hover .svc-card-arrow {
+  transform: translateX(4px);
+}
+
+/* Row variant (used on Services page) */
+.svc-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: var(--space-8);
+  align-items: start;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-10);
+  border: 1px solid var(--color-cream-dark);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base),
+    border-color var(--duration-base);
+}
+
+.svc-row:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(216, 167, 68, 0.4);
+}
+
+.svc-row-icon {
+  font-size: 3.5rem;
+  text-align: center;
+  padding-top: var(--space-2);
+}
+
+.svc-row-title {
+  font-size: var(--text-2xl);
+  color: var(--color-navy);
+  margin-bottom: var(--space-3);
+}
+
+.svc-row-summary {
+  font-size: var(--text-lg);
+  color: var(--color-slate);
+  margin-bottom: var(--space-5);
+  font-style: italic;
+}
+
+.svc-row-detail {
+  color: var(--color-slate-dark);
+  line-height: 1.75;
+}
+
+@media (max-width: 600px) {
+  .svc-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    padding: var(--space-8);
+  }
+  .svc-row-icon { text-align: left; }
+}

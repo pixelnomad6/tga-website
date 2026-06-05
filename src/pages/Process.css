@@ -1,0 +1,109 @@
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.process-step {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--space-10);
+  padding: var(--space-10) 0;
+  border-bottom: 1px solid var(--color-cream-dark);
+  position: relative;
+}
+
+.process-step:last-child { border-bottom: none; }
+
+.process-step-num {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700;
+  color: var(--color-gold);
+  opacity: 0.5;
+  line-height: 1;
+  padding-top: var(--space-1);
+}
+
+.process-step-meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-5);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.process-step-title {
+  font-size: var(--text-2xl);
+  color: var(--color-navy);
+}
+
+.process-step-duration {
+  font-family: var(--font-accent);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  background: rgba(216,167,68,0.12);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+}
+
+.process-step-body {
+  color: var(--color-slate-dark);
+  line-height: 1.75;
+  margin-bottom: var(--space-5);
+  max-width: 680px;
+}
+
+.process-step-callout {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-lg);
+  color: var(--color-navy);
+  border-left: 3px solid var(--color-gold);
+  padding-left: var(--space-5);
+}
+
+/* FAQ section */
+.process-faq {
+  background: var(--color-navy);
+}
+
+.process-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.process-faq-item {
+  padding: var(--space-8);
+  background: rgba(248,246,241,0.05);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(248,246,241,0.08);
+}
+
+.process-faq-q {
+  font-size: var(--text-lg);
+  color: var(--color-cream);
+  margin-bottom: var(--space-3);
+}
+
+.process-faq-a {
+  color: rgba(248,246,241,0.65);
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .process-step {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .process-step-num {
+    font-size: var(--text-3xl);
+    opacity: 0.7;
+  }
+}

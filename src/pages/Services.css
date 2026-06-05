@@ -1,0 +1,9 @@
+.services-full-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.services-bottom-cta {
+  background: var(--color-navy);
+}
