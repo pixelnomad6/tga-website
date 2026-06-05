@@ -9,6 +9,12 @@ import './ServiceDetail.css';
 
 const servicesData = _servicesData as unknown as Service[];
 
+// Same derivation as ServiceCard — short_title from Sheet, or strip SEO suffix from full title
+function getDisplayTitle(s: Service) {
+  return s.short_title
+    || s.title.split(' Public Adjuster')[0].split(':')[0].trim();
+}
+
 export default function ServiceDetail() {
   const { id } = useParams<{ id: string }>();
   const service = servicesData.find(s => s.id === id);
@@ -26,8 +32,11 @@ export default function ServiceDetail() {
     );
   }
 
+  const displayTitle = getDisplayTitle(service);
+
   return (
     <div className="sd-page">
+      {/* Full SEO title in <title> tag, clean display title on page */}
       <PageMeta
         title={service.title}
         description={service.summary ?? ''}
@@ -35,11 +44,18 @@ export default function ServiceDetail() {
       />
 
       {/* Hero */}
-      <section className="sd-hero">
+      <section
+        className="sd-hero"
+        style={service.image ? {
+          backgroundImage: `linear-gradient(to right, rgba(17,31,54,0.92) 55%, rgba(17,31,54,0.5) 100%), url(${service.image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        } : undefined}
+      >
         <div className="container">
           <AnimatedSection>
             <Link to="/services" className="sd-breadcrumb">← All Services</Link>
-            <h1 className="sd-title">{service.title}</h1>
+            <h1 className="sd-title">{displayTitle}</h1>
             {service.summary && (
               <p className="sd-summary">{service.summary}</p>
             )}
@@ -77,7 +93,7 @@ export default function ServiceDetail() {
             </ReactMarkdown>
           </AnimatedSection>
 
-          {/* Sticky CTA */}
+          {/* Inline CTA */}
           <AnimatedSection delay={0.2}>
             <div className="sd-inline-cta">
               <p>Ready to get started? Claim reviews are free — no obligation.</p>
@@ -96,7 +112,7 @@ export default function ServiceDetail() {
               <div className="sd-related-grid">
                 {otherServices.map(s => (
                   <Link key={s.id} to={`/services/${s.id}`} className="sd-related-card">
-                    <strong>{s.title}</strong>
+                    <strong>{getDisplayTitle(s)}</strong>
                     <span>{s.summary}</span>
                     <span className="sd-related-arrow">→</span>
                   </Link>
