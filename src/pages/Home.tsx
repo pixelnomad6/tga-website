@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { BadgeCheck, ScanSearch, Handshake } from 'lucide-react';
 import PageMeta from '../components/PageMeta';
 import AnimatedSection from '../components/AnimatedSection';
 import SectionHeading from '../components/SectionHeading';
@@ -108,13 +109,13 @@ export default function Home() {
           />
           <div className="value-grid">
             {[
-              { icon: '⚖️', title: 'Licensed Representation', body: 'We are licensed public adjusters in the state of Florida. We know your policy, your rights, and the tactics carriers use to underpay.' },
-              { icon: '🔍', title: 'Forensic Documentation', body: 'We inspect your property with the same rigor your carrier should have used the first time — and find what they missed.' },
-              { icon: '💪', title: 'No Fee Unless We Win', body: "We work on contingency. Our fee comes from your recovered settlement — so we're motivated to fight for every dollar." },
+              { Icon: BadgeCheck,  title: 'Licensed Representation', body: 'We are licensed public adjusters in Michigan. We know your policy, your rights, and the tactics carriers use to underpay.' },
+              { Icon: ScanSearch,  title: 'Forensic Documentation',  body: 'We inspect your property with the same rigor your carrier should have used the first time — and find what they missed.' },
+              { Icon: Handshake,   title: 'No Fee Unless We Win',    body: "We work on contingency. Our fee comes from your recovered settlement — so we're motivated to fight for every dollar." },
             ].map((card, i) => (
               <AnimatedSection key={card.title} delay={i * 0.1}>
                 <div className="value-card">
-                  <div className="value-icon">{card.icon}</div>
+                  <div className="value-icon"><card.Icon size={32} strokeWidth={1.5} /></div>
                   <h3>{card.title}</h3>
                   <p>{card.body}</p>
                 </div>

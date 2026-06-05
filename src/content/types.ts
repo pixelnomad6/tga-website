@@ -5,7 +5,8 @@ export interface MetaItem {
 
 export interface Service {
   id: string;
-  title: string;
+  title: string;       // full SEO title — used on the service detail page
+  short_title?: string; // short display title — used on cards (e.g. "Wind & Hail Damage")
   icon: string;
   summary?: string;
   sumary?: string;   // typo-tolerant alias for Sheet column header mistakes

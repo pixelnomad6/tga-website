@@ -49,6 +49,8 @@ interface Props {
 export default function ServiceCard({ service, delay = 0, variant = 'card' }: Props) {
   const summary = service.summary ?? service.sumary ?? '';
 
+  const displayTitle = service.short_title || service.title;
+
   if (variant === 'row') {
     return (
       <AnimatedSection delay={delay}>
@@ -57,7 +59,7 @@ export default function ServiceCard({ service, delay = 0, variant = 'card' }: Pr
             <ServiceIcon id={service.id} iconKey={service.icon} size={36} />
           </div>
           <div className="svc-row-body">
-            <h2 className="svc-row-title">{service.title}</h2>
+            <h2 className="svc-row-title">{displayTitle}</h2>
             <p className="svc-row-summary">{summary}</p>
             <span className="svc-row-link">Read more →</span>
           </div>
@@ -72,7 +74,7 @@ export default function ServiceCard({ service, delay = 0, variant = 'card' }: Pr
         <span className="svc-card-icon">
           <ServiceIcon id={service.id} iconKey={service.icon} size={28} />
         </span>
-        <h3 className="svc-card-title">{service.title}</h3>
+        <h3 className="svc-card-title">{displayTitle}</h3>
         <p className="svc-card-summary">{summary}</p>
         <span className="svc-card-arrow">→</span>
       </Link>
