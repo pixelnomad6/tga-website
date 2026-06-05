@@ -58,12 +58,14 @@
 }
 
 .process-step-callout {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: var(--text-lg);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: var(--text-base);
+  font-weight: 500;
   color: var(--color-navy);
   border-left: 3px solid var(--color-gold);
   padding-left: var(--space-5);
+  line-height: 1.7;
 }
 
 /* FAQ section */
