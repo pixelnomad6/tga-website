@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import PageMeta from '../components/PageMeta';
 import Button from '../components/Button';
 import AnimatedSection from '../components/AnimatedSection';
+import ServiceCard from '../components/ServiceCard';
 import type { Service } from '../content/types';
 import _servicesData from '../content/services.json';
 import './ServiceDetail.css';
@@ -110,12 +111,8 @@ export default function ServiceDetail() {
             <AnimatedSection>
               <h2 className="sd-related-heading">Other services we handle</h2>
               <div className="sd-related-grid">
-                {otherServices.map(s => (
-                  <Link key={s.id} to={`/services/${s.id}`} className="sd-related-card">
-                    <strong>{getDisplayTitle(s)}</strong>
-                    <span>{s.summary}</span>
-                    <span className="sd-related-arrow">→</span>
-                  </Link>
+                {otherServices.map((s, i) => (
+                  <ServiceCard key={s.id} service={s} delay={i * 0.1} variant="card" />
                 ))}
               </div>
             </AnimatedSection>

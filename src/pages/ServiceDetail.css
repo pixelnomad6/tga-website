@@ -175,54 +175,20 @@
 
 .sd-related-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-5);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
 }
 
-.sd-related-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-7) var(--space-8);
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-cream-dark);
-  transition:
-    transform var(--duration-base) var(--ease-out),
-    border-color var(--duration-base),
-    box-shadow var(--duration-base);
+@media (max-width: 900px) {
+  .sd-related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.sd-related-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(216, 167, 68, 0.5);
-  box-shadow: var(--shadow-md);
-}
-
-.sd-related-card strong {
-  font-size: var(--text-base);
-  color: var(--color-navy);
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-.sd-related-card span {
-  font-size: var(--text-sm);
-  color: var(--color-slate);
-  line-height: 1.6;
-  flex: 1;
-}
-
-.sd-related-arrow {
-  font-size: var(--text-base);
-  color: var(--color-gold) !important;
-  margin-top: var(--space-2);
-  flex: 0 !important;
-  transition: transform var(--duration-base);
-}
-
-.sd-related-card:hover .sd-related-arrow {
-  transform: translateX(4px);
+@media (max-width: 560px) {
+  .sd-related-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Not found */
