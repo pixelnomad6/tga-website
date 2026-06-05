@@ -49,7 +49,10 @@ interface Props {
 export default function ServiceCard({ service, delay = 0, variant = 'card' }: Props) {
   const summary = service.summary ?? service.sumary ?? '';
 
-  const displayTitle = service.short_title || service.title;
+  // Use short_title if set, otherwise derive from full title:
+  // "Wind and Hail Damage Public Adjuster: Get the Settlement..." → "Wind and Hail Damage"
+  const displayTitle = service.short_title
+    || service.title.split(' Public Adjuster')[0].split(':')[0].trim();
 
   if (variant === 'row') {
     return (
