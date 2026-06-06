@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import { motion, AnimatePresence } from 'framer-motion';
 import PageMeta from '../components/PageMeta';
 import Button from '../components/Button';
 import AnimatedSection from '../components/AnimatedSection';
@@ -10,11 +12,107 @@ import './ServiceDetail.css';
 
 const servicesData = _servicesData as unknown as Service[];
 
-// Same derivation as ServiceCard — short_title from Sheet, or strip SEO suffix from full title
 function getDisplayTitle(s: Service) {
   return s.short_title
     || s.title.split(' Public Adjuster')[0].split(':')[0].trim();
 }
+
+// Split body markdown into: content before FAQ section, FAQ items, content after FAQ
+function parseBodyWithFAQ(body: string) {
+  const faqMatch = body.match(/^(#{1,2}\s+.*(faq|frequently asked).*)$/im);
+  if (!faqMatch || faqMatch.index === undefined) {
+    return { before: body, faqs: [], faqHeading: '', after: '' };
+  }
+
+  const before = body.slice(0, faqMatch.index).trim();
+  const faqAndAfter = body.slice(faqMatch.index);
+
+  // FAQ heading is the matched line
+  const firstNewline = faqAndAfter.indexOf('\n');
+  const faqHeading = faqAndAfter.slice(0, firstNewline).replace(/^#{1,2}\s+/, '').trim();
+  const faqContent = faqAndAfter.slice(firstNewline + 1);
+
+  // Find where FAQ ends (next h2 that isn't an h3)
+  const nextH2 = faqContent.match(/^##\s+/m);
+  const faqBody = nextH2?.index !== undefined
+    ? faqContent.slice(0, nextH2.index)
+    : faqContent;
+  const after = nextH2?.index !== undefined
+    ? faqContent.slice(nextH2.index)
+    : '';
+
+  // Parse ### Question\nAnswer pairs
+  const faqs: Array<{ question: string; answer: string }> = [];
+  const qaRegex = /###\s+(.+)\n([\s\S]+?)(?=###|$)/g;
+  let m;
+  while ((m = qaRegex.exec(faqBody)) !== null) {
+    faqs.push({
+      question: m[1].trim(),
+      answer: m[2].trim().replace(/\n+/g, ' '),
+    });
+  }
+
+  return { before, faqs, faqHeading, after };
+}
+
+// Simple inline accordion (no Sheet dependency)
+function FAQBlock({ heading, items }: { heading: string; items: Array<{ question: string; answer: string }> }) {
+  const [open, setOpen] = useState<number | null>(null);
+  if (!items.length) return null;
+  return (
+    <div className="sd-faq-block">
+      {heading && <h2 className="sd-md-h2">{heading}</h2>}
+      <div className="sd-faq-list">
+        {items.map((item, i) => {
+          const isOpen = open === i;
+          return (
+            <div key={i} className={`sd-faq-item ${isOpen ? 'sd-faq-item-open' : ''}`}>
+              <button
+                className="sd-faq-trigger"
+                onClick={() => setOpen(isOpen ? null : i)}
+                aria-expanded={isOpen}
+              >
+                <span>{item.question}</span>
+                <motion.span
+                  className="sd-faq-icon"
+                  animate={{ rotate: isOpen ? 45 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >+</motion.span>
+              </button>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    className="sd-faq-answer"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <p>{item.answer}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+const mdComponents = {
+  h1: ({ children }: any) => <h1 className="sd-md-h1">{children}</h1>,
+  h2: ({ children }: any) => <h2 className="sd-md-h2">{children}</h2>,
+  h3: ({ children }: any) => <h3 className="sd-md-h3">{children}</h3>,
+  p:  ({ children }: any) => <p  className="sd-md-p">{children}</p>,
+  ul: ({ children }: any) => <ul className="sd-md-ul">{children}</ul>,
+  ol: ({ children }: any) => <ol className="sd-md-ol">{children}</ol>,
+  li: ({ children }: any) => <li className="sd-md-li">{children}</li>,
+  a:  ({ href, children }: any) => <a href={href} className="sd-md-a">{children}</a>,
+  hr: () => <hr className="sd-md-hr" />,
+  strong: ({ children }: any) => <strong className="sd-md-strong">{children}</strong>,
+  blockquote: ({ children }: any) => <blockquote className="sd-md-blockquote">{children}</blockquote>,
+};
 
 export default function ServiceDetail() {
   const { id } = useParams<{ id: string }>();
@@ -34,10 +132,10 @@ export default function ServiceDetail() {
   }
 
   const displayTitle = getDisplayTitle(service);
+  const { before, faqs, faqHeading, after } = parseBodyWithFAQ(service.body || '');
 
   return (
     <div className="sd-page">
-      {/* Full SEO title in <title> tag, clean display title on page */}
       <PageMeta
         title={service.title}
         description={service.summary ?? ''}
@@ -57,9 +155,7 @@ export default function ServiceDetail() {
           <AnimatedSection>
             <Link to="/services" className="sd-breadcrumb">← All Services</Link>
             <h1 className="sd-title">{displayTitle}</h1>
-            {service.summary && (
-              <p className="sd-summary">{service.summary}</p>
-            )}
+            {service.summary && <p className="sd-summary">{service.summary}</p>}
             <div className="sd-hero-cta">
               <Button to="/contact" size="lg">Get a Free Claim Review</Button>
             </div>
@@ -67,31 +163,18 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      {/* Body content — rendered from Markdown */}
+      {/* Body content */}
       <section className="sd-body">
         <div className="container sd-content">
           <AnimatedSection>
-            <ReactMarkdown
-              components={{
-                h1: ({ children }) => <h1 className="sd-md-h1">{children}</h1>,
-                h2: ({ children }) => <h2 className="sd-md-h2">{children}</h2>,
-                h3: ({ children }) => <h3 className="sd-md-h3">{children}</h3>,
-                p:  ({ children }) => <p  className="sd-md-p">{children}</p>,
-                ul: ({ children }) => <ul className="sd-md-ul">{children}</ul>,
-                ol: ({ children }) => <ol className="sd-md-ol">{children}</ol>,
-                li: ({ children }) => <li className="sd-md-li">{children}</li>,
-                a:  ({ href, children }) => (
-                  <a href={href} className="sd-md-a">{children}</a>
-                ),
-                hr: () => <hr className="sd-md-hr" />,
-                strong: ({ children }) => <strong className="sd-md-strong">{children}</strong>,
-                blockquote: ({ children }) => (
-                  <blockquote className="sd-md-blockquote">{children}</blockquote>
-                ),
-              }}
-            >
-              {service.body || ''}
-            </ReactMarkdown>
+            {/* Content before FAQ */}
+            <ReactMarkdown components={mdComponents}>{before}</ReactMarkdown>
+
+            {/* FAQ accordion */}
+            <FAQBlock heading={faqHeading} items={faqs} />
+
+            {/* Content after FAQ (final CTA etc.) */}
+            {after && <ReactMarkdown components={mdComponents}>{after}</ReactMarkdown>}
           </AnimatedSection>
 
           {/* Inline CTA */}
