@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { BadgeCheck, ScanSearch, Handshake } from 'lucide-react';
 import PageMeta from '../components/PageMeta';
 import AnimatedSection from '../components/AnimatedSection';
 import SectionHeading from '../components/SectionHeading';
@@ -21,25 +20,21 @@ function getMeta(key: string) {
 }
 
 const steps = [
-  {
-    num: '01',
-    title: 'Free Claim Review',
-    body: 'We review your policy, your denial or settlement offer, and your damage documentation — at no cost, no obligation.',
-  },
-  {
-    num: '02',
-    title: 'Forensic Inspection',
-    body: 'We conduct a thorough, independent inspection of your property — documenting everything the insurance adjuster missed.',
-  },
-  {
-    num: '03',
-    title: 'We Fight. You Collect.',
-    body: "We negotiate directly with your carrier and don't stop until you receive every dollar your policy entitles you to.",
-  },
+  { num: '01', title: 'Free Claim Review',    body: 'We review your policy, your denial or settlement offer, and your damage documentation — at no cost, no obligation.' },
+  { num: '02', title: 'Forensic Inspection',  body: 'We conduct a thorough, independent inspection of your property — documenting everything the insurance adjuster missed.' },
+  { num: '03', title: 'We Fight. You Collect.', body: "We negotiate directly with your carrier and don't stop until you receive every dollar your policy entitles you to." },
+];
+
+const whyCards = [
+  { title: 'Michigan Licensed & Regulated', body: "We're licensed by the Michigan Department of Insurance and Financial Services (DIFS). You can verify our credentials. No surprises." },
+  { title: 'Local Michigan Team',           body: "We know Michigan weather, Michigan properties, and Michigan insurers. We're your neighbors — not a call center thousands of miles away." },
+  { title: 'No Fee Unless You Win',         body: "Our fee is a percentage of what we recover for you. If we don't increase your settlement, you owe us nothing. Zero risk to you." },
+  { title: 'You Stay in Control',           body: "You always have the final say. We keep you informed, we never make decisions without you, and we move at a pace you're comfortable with." },
 ];
 
 export default function Home() {
   const allTestimonials = testimonialsData;
+  const featuredTestimonial = allTestimonials[0] ?? null;
   const services = [...servicesData]
     .sort((a, b) => Number(a.sort_order) - Number(b.sort_order))
     .slice(0, 3);
@@ -60,16 +55,20 @@ export default function Home() {
           >
             <span className="hero-eyebrow">{getMeta('tagline') || 'Your claim, our fight.'}</span>
             <h1 className="hero-heading">
-              Your insurance company<br />
-              <em>owes you more.</em>
+              Your claim.<br />
+              <em>Our guidance.</em>
             </h1>
             <p className="hero-sub">
-              We've been there too. Now we stand with you — one homeowner,
-              one claim, one fair outcome at a time.
+              Property damage is overwhelming. We walk with you through every step of the
+              insurance process, so nothing gets missed and nothing gets left on the table.
             </p>
             <div className="hero-actions">
               <Button to="/contact" size="lg">Get a Free Claim Review</Button>
               <Button to="/process" variant="outline" size="lg">See How It Works</Button>
+            </div>
+            <div className="hero-badges">
+              <span className="hero-badge">✓ Licensed in Michigan</span>
+              <span className="hero-badge">✓ No fee unless we recover more</span>
             </div>
           </motion.div>
         </div>
@@ -88,9 +87,7 @@ export default function Home() {
               if (!val) return null;
               return (
                 <div key={i} className="hero-stat">
-                  <span className="hero-stat-number">
-                    <AnimatedCounter value={val} />
-                  </span>
+                  <span className="hero-stat-number"><AnimatedCounter value={val} /></span>
                   <span className="hero-stat-label">{label}</span>
                 </div>
               );
@@ -99,23 +96,17 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ── Value prop ── */}
+      {/* ── Why Trust Guard — 4 clean cards ── */}
       <section className="section value-prop">
         <div className="container">
           <SectionHeading
             eyebrow="Why Trust Guard"
-            heading="They have an adjuster. Now you do too."
-            sub="Your insurance company sends a trained professional whose job is to minimize your payout. We send ours to maximize it."
+            heading="What makes working with us different"
           />
-          <div className="value-grid">
-            {[
-              { Icon: BadgeCheck,  title: 'Licensed Representation', body: 'We are licensed public adjusters in Michigan. We know your policy, your rights, and the tactics carriers use to underpay.' },
-              { Icon: ScanSearch,  title: 'Forensic Documentation',  body: 'We inspect your property with the same rigor your carrier should have used the first time — and find what they missed.' },
-              { Icon: Handshake,   title: 'No Fee Unless We Win',    body: "We work on contingency. Our fee comes from your recovered settlement — so we're motivated to fight for every dollar." },
-            ].map((card, i) => (
+          <div className="value-grid-4">
+            {whyCards.map((card, i) => (
               <AnimatedSection key={card.title} delay={i * 0.1}>
-                <div className="value-card">
-                  <div className="value-icon"><card.Icon size={32} strokeWidth={1.5} /></div>
+                <div className="value-card-clean">
                   <h3>{card.title}</h3>
                   <p>{card.body}</p>
                 </div>
@@ -125,14 +116,60 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Social proof — testimonial + stat ── */}
+      {featuredTestimonial && (
+        <section className="section social-proof">
+          <div className="container">
+            <div className="sp-grid">
+              {/* Left col */}
+              <AnimatedSection>
+                <div className="sp-left">
+                  <span className="sp-eyebrow">You're not alone in this</span>
+                  <h2 className="sp-heading">
+                    Most homeowners feel overwhelmed after a claim. That's completely normal.
+                  </h2>
+                  <p className="sp-body">
+                    The insurance process is designed by companies, for companies. The language
+                    is dense. The process is slow. And the person the insurance company sends to
+                    assess your damage? They work for the insurer — not for you.
+                  </p>
+                  <p className="sp-body">
+                    That's where we come in. We're on your side of the table. We speak the
+                    language, know the process, and make sure you don't leave money on the table
+                    simply because the paperwork was confusing.
+                  </p>
+                  <Button to="/contact" size="lg">Get a Free Claim Review Today</Button>
+                </div>
+              </AnimatedSection>
+
+              {/* Right col — testimonial + stat */}
+              <AnimatedSection delay={0.15}>
+                <div className="sp-right">
+                  <div className="sp-testimonial-card">
+                    <span className="sp-card-eyebrow">What our clients say</span>
+                    <blockquote className="sp-quote">"{featuredTestimonial.quote}"</blockquote>
+                    <div className="sp-attribution">
+                      <strong>{featuredTestimonial.name}</strong>
+                      <span>{featuredTestimonial.location} · {featuredTestimonial.claim_type}</span>
+                    </div>
+                  </div>
+                  <div className="sp-stat-card">
+                    <div className="sp-stat-number">
+                      <AnimatedCounter value={getMeta('stat_1_number') || '$22,266'} />
+                    </div>
+                    <p className="sp-stat-context">{getMeta('stat_1_label') || 'Average payout with a public adjuster'}</p>
+                  </div>
+                </div>
+              </AnimatedSection>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── How it works ── */}
       <section className="section how-it-works">
         <div className="container">
-          <SectionHeading
-            eyebrow="The Process"
-            heading="Three steps from loss to fair settlement"
-            light
-          />
+          <SectionHeading eyebrow="The Process" heading="Three steps from loss to fair settlement" light />
           <div className="steps-grid">
             {steps.map((step, i) => (
               <AnimatedSection key={step.num} delay={i * 0.15}>
@@ -154,11 +191,7 @@ export default function Home() {
       {services.length > 0 && (
         <section className="section services-preview">
           <div className="container">
-            <SectionHeading
-              eyebrow="What We Handle"
-              heading="Every type of property claim"
-              sub="If your home was damaged and your insurer isn't paying what you're owed, we can help."
-            />
+            <SectionHeading eyebrow="What We Handle" heading="Every type of property claim" sub="If your home was damaged and your insurer isn't paying what you're owed, we can help." />
             <div className="services-grid">
               {services.map((svc, i) => (
                 <ServiceCard key={svc.id} service={svc} delay={i * 0.1} variant="card" />
@@ -171,31 +204,35 @@ export default function Home() {
         </section>
       )}
 
-      {/* ── Testimonials ── */}
-      {allTestimonials.length > 0 && (
+      {/* ── Testimonials scroll ── */}
+      {allTestimonials.length > 1 && (
         <section className="section testimonials">
           <div className="container">
-            <SectionHeading
-              eyebrow="Results"
-              heading="Real clients. Real recoveries."
-              light
-            />
+            <SectionHeading eyebrow="Results" heading="Real clients. Real recoveries." light />
             <TestimonialCarousel items={allTestimonials} />
           </div>
         </section>
       )}
 
-      {/* ── CTA banner ── */}
+      {/* ── CTA banner — two-column split ── */}
       <section className="cta-banner">
-        <div className="container cta-banner-inner">
+        <div className="container cta-banner-split">
           <AnimatedSection>
-            <h2 className="cta-banner-heading">
-              Don't settle for their number.<br />Let's find yours.
-            </h2>
-            <p className="cta-banner-sub">
-              Free review. No obligation. No fee unless we recover more for you.
-            </p>
-            <Button to="/contact" size="lg">Start Your Free Review</Button>
+            <div className="cta-split-left">
+              <span className="cta-split-eyebrow">Ready to get started?</span>
+              <h2 className="cta-banner-heading">Don't navigate your claim alone.</h2>
+              <p className="cta-banner-sub">
+                Tell us what happened. We'll listen, review your situation honestly, and tell
+                you exactly how we can help — or point you in the right direction if we can't.
+                That first conversation is always free.
+              </p>
+            </div>
+          </AnimatedSection>
+          <AnimatedSection delay={0.15}>
+            <div className="cta-split-right">
+              <Button to="/contact" size="lg">Get a Free Claim Review Today</Button>
+              <Button to="/process" variant="outline" size="lg">See How It Works</Button>
+            </div>
           </AnimatedSection>
         </div>
       </section>
