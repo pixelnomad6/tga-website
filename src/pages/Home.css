@@ -248,6 +248,99 @@
   background: var(--color-navy-dark);
 }
 
+/* ── Why homeowners section ── */
+.why-homeowners {
+  background: var(--color-navy);
+  padding: var(--space-16) 0;
+}
+
+.wh-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(248, 246, 241, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12) var(--space-14);
+  margin-bottom: var(--space-10);
+}
+
+.wh-eyebrow {
+  font-family: var(--font-accent);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+.wh-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.5vw, 2.25rem);
+  color: var(--color-cream);
+  line-height: 1.25;
+  margin-bottom: var(--space-5);
+}
+
+.wh-body {
+  font-size: var(--text-base);
+  color: rgba(248, 246, 241, 0.65);
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0;
+}
+
+.wh-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.wh-meta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.wh-meta-label {
+  font-family: var(--font-accent);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  flex-shrink: 0;
+  padding-top: 6px;
+  min-width: 110px;
+}
+
+.wh-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.wh-pill {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-cream);
+  border: 1px solid rgba(248, 246, 241, 0.25);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-5);
+  transition: border-color var(--duration-base), background var(--duration-base);
+}
+
+.wh-pill:hover {
+  border-color: var(--color-gold);
+  background: rgba(216, 167, 68, 0.1);
+  color: var(--color-gold);
+}
+
+.wh-meta-value {
+  font-size: var(--text-base);
+  color: var(--color-cream);
+  padding-top: 4px;
+}
+
 /* ── 4-card clean Why Us grid ── */
 .value-grid-4 {
   display: grid;

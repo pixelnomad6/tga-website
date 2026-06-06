@@ -96,6 +96,45 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* ── Why homeowners call us + damage types ── */}
+      <section className="why-homeowners">
+        <div className="container">
+          <AnimatedSection>
+            <div className="wh-card">
+              <span className="wh-eyebrow">Why homeowners call us</span>
+              <h2 className="wh-heading">
+                {getMeta('why_heading') || "Most policyholders don't know what they're actually owed."}
+              </h2>
+              <p className="wh-body">
+                {getMeta('why_body') || "Your insurance policy is written in their language. We translate it and make sure every dollar of damage is properly documented and claimed."}
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.1}>
+            <div className="wh-meta-row">
+              <div className="wh-meta-item">
+                <span className="wh-meta-label">Damage Type</span>
+                <div className="wh-pills">
+                  {[...servicesData]
+                    .sort((a, b) => Number(a.sort_order) - Number(b.sort_order))
+                    .map(s => {
+                      const label = s.short_title || s.title.split(' Public Adjuster')[0].split(':')[0].trim();
+                      return (
+                        <a key={s.id} href={`/services/${s.id}`} className="wh-pill">{label}</a>
+                      );
+                    })}
+                </div>
+              </div>
+              <div className="wh-meta-item">
+                <span className="wh-meta-label">Service Area</span>
+                <span className="wh-meta-value">{getMeta('address') || 'Serving all of Michigan'}</span>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
       {/* ── Why Trust Guard — 4 clean cards ── */}
       <section className="section value-prop">
         <div className="container">
