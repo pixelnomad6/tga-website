@@ -85,9 +85,9 @@ function FAQBlock({ heading, items }: { heading: string; items: Array<{ question
 
 // Stats strip — appears below hero on every service page
 const STATS = [
-  { Icon: BadgeDollarSign, value: '$0 Upfront', label: 'Fee only from what we recover for you' },
-  { Icon: ShieldCheck,     value: 'Michigan Licensed', label: 'Series 16-70 Public Adjuster' },
-  { Icon: Clock,           value: '24-Hour Response', label: 'On-site inspection within 48 hours' },
+  { Icon: BadgeDollarSign, value: '$0 Upfront',         label: 'Fee only from what we recover for you' },
+  { Icon: ShieldCheck,     value: 'Michigan Licensed',  label: 'Series 16-70 Public Adjuster' },
+  { Icon: Clock,           value: '24-Hour Response',   label: 'On-site inspection within 48 hours' },
 ];
 
 function StatsStrip() {
@@ -95,7 +95,7 @@ function StatsStrip() {
     <div className="sd-stats-strip">
       {STATS.map(({ Icon, value, label }) => (
         <div key={value} className="sd-stat">
-          <Icon size={22} strokeWidth={1.5} className="sd-stat-icon" />
+          <Icon size={36} strokeWidth={1.5} className="sd-stat-icon" />
           <strong className="sd-stat-value">{value}</strong>
           <span className="sd-stat-label">{label}</span>
         </div>
