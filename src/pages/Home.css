@@ -171,27 +171,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-8);
-  position: relative;
-}
-
-.steps-grid::before {
-  content: '';
-  position: absolute;
-  top: calc(var(--space-8) + 1.875rem);
-  left: calc(33.333% - 1px);
-  width: calc(33.333%);
-  height: 1px;
-  background: rgba(216,167,68,0.25);
-}
-
-.steps-grid::after {
-  content: '';
-  position: absolute;
-  top: calc(var(--space-8) + 1.875rem);
-  left: calc(66.666% - 1px);
-  width: calc(33.333%);
-  height: 1px;
-  background: rgba(216,167,68,0.25);
 }
 
 .step-card {
@@ -219,6 +198,17 @@
 .step-body {
   color: rgba(248,246,241,0.65);
   line-height: 1.7;
+}
+
+/* Horizontal connector line — on cards 2 and 3, centered in the top padding gap */
+.step-card + .step-card::before {
+  content: '';
+  position: absolute;
+  top: var(--space-4);   /* centers in the var(--space-8) top padding */
+  left: calc(-1 * var(--space-4));  /* reach into the gap slightly */
+  right: calc(-1 * var(--space-4)); /* mirror on the right */
+  height: 1px;
+  background: rgba(216, 167, 68, 0.3);
 }
 
 .how-cta {
@@ -290,8 +280,7 @@
     grid-template-columns: 1fr 1fr;
     gap: var(--space-5);
   }
-  .steps-grid::before,
-  .steps-grid::after { display: none; }
+  .step-card + .step-card::before { display: none; }
   .hero-stats-inner { grid-template-columns: repeat(2, 1fr); }
 }
 
