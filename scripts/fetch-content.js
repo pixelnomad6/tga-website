@@ -49,7 +49,7 @@ const TABS = [
   'meta',
 ];
 
-// gviz/tq correctly filters by tab name and works when sheet is shared "Anyone with link can view"
+// gviz/tq with cache-busting headers
 function csvUrl(tab) {
   return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${tab}`;
 }
@@ -114,7 +114,12 @@ function parseRow(line) {
 async function fetchTab(tab) {
   const url  = csvUrl(tab);
   console.log(`  Fetching: ${tab}`);
-  const res  = await fetch(url);
+  const res  = await fetch(url, {
+    headers: {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+    }
+  });
   if (!res.ok) throw new Error(`HTTP ${res.status} for tab "${tab}": ${url}`);
   const text = await res.text();
   return parseCsv(text);
