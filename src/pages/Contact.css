@@ -203,3 +203,23 @@
   .contact-info { position: static; }
   .form-row { grid-template-columns: 1fr; }
 }
+
+
+.contact-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+  color: var(--color-slate);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.contact-divider::before,
+.contact-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-cream-dark);
+}

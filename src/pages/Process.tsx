@@ -1,3 +1,4 @@
+import { INTAKE_FORM_URL } from '../lib/config';
 import PageMeta from '../components/PageMeta';
 import AnimatedSection from '../components/AnimatedSection';
 import SectionHeading from '../components/SectionHeading';
@@ -129,7 +130,7 @@ export default function Process() {
             <p style={{ color: 'rgba(17,31,52,0.75)', fontSize: 'var(--text-lg)', marginBottom: 'var(--space-8)', maxWidth: 480, marginInline: 'auto' }}>
               Step one costs you nothing. Call us or submit your information below.
             </p>
-            <Button to="/contact" variant="secondary" size="lg">Get My Free Review</Button>
+            <Button href={INTAKE_FORM_URL} variant="secondary" size="lg">Get My Free Review</Button>
           </AnimatedSection>
         </div>
       </section>

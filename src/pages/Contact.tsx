@@ -5,6 +5,7 @@ import AnimatedSection from '../components/AnimatedSection';
 import Button from '../components/Button';
 import type { MetaItem } from '../content/types';
 import _metaData from '../content/meta.json';
+import { INTAKE_FORM_URL } from '../lib/config';
 const metaData = _metaData as unknown as MetaItem[];
 import './Contact.css';
 
@@ -58,14 +59,22 @@ export default function Contact() {
         <div className="container">
           <AnimatedSection>
             <span className="page-eyebrow">Contact</span>
-            <h1 className="page-title">Let's talk about your claim.</h1>
+            <h1 className="page-title">Get in touch.</h1>
             <p className="page-sub">
-              Free review. No commitment. No fee unless we recover more for you.
-              Fill out the form and we'll be in touch the same business day.
+              Filing a claim or not sure what you're owed? Start with our intake form — it
+              takes 3 minutes and triggers an immediate review. For general questions, use
+              the form below.
             </p>
+            <div style={{ marginTop: 'var(--space-8)' }}>
+              <Button href={INTAKE_FORM_URL} size="lg">Start My Free Claim Review →</Button>
+            </div>
           </AnimatedSection>
         </div>
       </section>
+
+      <div className="contact-divider container">
+        <span>Or send us a general message</span>
+      </div>
 
       <section className="section contact-body">
         <div className="container contact-layout">

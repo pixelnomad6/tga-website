@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { MetaItem } from '../content/types';
+import { INTAKE_FORM_URL } from '../lib/config';
 import './Footer.css';
 
 interface Props {
@@ -61,7 +62,7 @@ export default function Footer({ meta }: Props) {
           {phone  && <a href={`tel:${phone}`}   className="footer-link">{phone}</a>}
           {email  && <a href={`mailto:${email}`} className="footer-link">{email}</a>}
           {address && <span className="footer-link">{address}</span>}
-          <Link to="/contact" className="footer-cta">Free Claim Review</Link>
+          <a href={INTAKE_FORM_URL} className="footer-cta" target="_blank" rel="noopener noreferrer">Free Claim Review</a>
         </div>
       </div>
 

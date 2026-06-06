@@ -1,3 +1,4 @@
+import { INTAKE_FORM_URL } from '../lib/config';
 import PageMeta from '../components/PageMeta';
 import AnimatedSection from '../components/AnimatedSection';
 import SectionHeading from '../components/SectionHeading';
@@ -160,7 +161,7 @@ export default function About() {
               insurance, and operate under the strict ethical guidelines of the public adjuster
               profession. You can verify our license at any time through the Florida DFS website.
             </p>
-            <Button to="/contact" size="lg" style={{ marginTop: 'var(--space-8)' }}>
+            <Button href={INTAKE_FORM_URL} size="lg" style={{ marginTop: 'var(--space-8)' }}>
               Work With Us
             </Button>
           </AnimatedSection>

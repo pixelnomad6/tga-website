@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { INTAKE_FORM_URL } from '../lib/config';
 import './Nav.css';
 
 const links = [
@@ -50,7 +51,7 @@ export default function Nav() {
         </nav>
 
         {/* Desktop CTA */}
-        <Link to="/contact" className="nav-cta">Free Claim Review</Link>
+        <a href={INTAKE_FORM_URL} className="nav-cta" target="_blank" rel="noopener noreferrer">Free Claim Review</a>
 
         {/* Hamburger */}
         <button
@@ -85,9 +86,9 @@ export default function Nav() {
                   {l.label}
                 </NavLink>
               ))}
-              <Link to="/contact" className="nav-mobile-cta" onClick={() => setOpen(false)}>
+              <a href={INTAKE_FORM_URL} className="nav-mobile-cta" target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
                 Free Claim Review
-              </Link>
+              </a>
             </nav>
           </motion.div>
         )}

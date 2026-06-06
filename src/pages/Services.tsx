@@ -1,3 +1,4 @@
+import { INTAKE_FORM_URL } from '../lib/config';
 import PageMeta from '../components/PageMeta';
 import SectionHeading from '../components/SectionHeading';
 import Button from '../components/Button';
@@ -51,7 +52,7 @@ export default function Services() {
             light
           />
           <div style={{ textAlign: 'center' }}>
-            <Button to="/contact" size="lg">Get a Free Claim Review</Button>
+            <Button href={INTAKE_FORM_URL} size="lg">Get a Free Claim Review</Button>
           </div>
         </div>
       </section>

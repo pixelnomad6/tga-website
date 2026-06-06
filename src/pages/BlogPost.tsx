@@ -1,3 +1,4 @@
+import { INTAKE_FORM_URL } from '../lib/config';
 import { useParams, Link } from 'react-router-dom';
 import PageMeta from '../components/PageMeta';
 import AnimatedSection from '../components/AnimatedSection';
@@ -65,7 +66,7 @@ export default function BlogPost() {
               <div className="blog-sidebar-card">
                 <h3>Is your claim underpaid?</h3>
                 <p>A free review costs nothing. We'll tell you honestly whether we can recover more — before you commit to anything.</p>
-                <Button to="/contact" fullWidth size="md">Get a Free Review</Button>
+                <Button href={INTAKE_FORM_URL} fullWidth size="md">Get a Free Review</Button>
               </div>
             </AnimatedSection>
           </aside>

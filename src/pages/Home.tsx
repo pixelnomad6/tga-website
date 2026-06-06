@@ -1,3 +1,4 @@
+import { INTAKE_FORM_URL } from '../lib/config';
 import { motion } from 'framer-motion';
 import PageMeta from '../components/PageMeta';
 import AnimatedSection from '../components/AnimatedSection';
@@ -63,7 +64,7 @@ export default function Home() {
               insurance process, so nothing gets missed and nothing gets left on the table.
             </p>
             <div className="hero-actions">
-              <Button to="/contact" size="lg">Get a Free Claim Review</Button>
+              <Button href={INTAKE_FORM_URL} size="lg">Get a Free Claim Review</Button>
               <Button to="/process" variant="outline" size="lg">See How It Works</Button>
             </div>
             <div className="hero-badges">
@@ -177,7 +178,7 @@ export default function Home() {
                     language, know the process, and make sure you don't leave money on the table
                     simply because the paperwork was confusing.
                   </p>
-                  <Button to="/contact" size="lg">Get a Free Claim Review Today</Button>
+                  <Button href={INTAKE_FORM_URL} size="lg">Get a Free Claim Review Today</Button>
                 </div>
               </AnimatedSection>
 
@@ -269,7 +270,7 @@ export default function Home() {
           </AnimatedSection>
           <AnimatedSection delay={0.15}>
             <div className="cta-split-right">
-              <Button to="/contact" size="lg">Get a Free Claim Review Today</Button>
+              <Button href={INTAKE_FORM_URL} size="lg">Get a Free Claim Review Today</Button>
               <Button to="/process" variant="outline" size="lg">See How It Works</Button>
             </div>
           </AnimatedSection>

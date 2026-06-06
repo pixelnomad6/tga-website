@@ -1,3 +1,4 @@
+import { INTAKE_FORM_URL } from '../lib/config';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
@@ -110,7 +111,7 @@ function MidCTA() {
     <div className="sd-mid-cta">
       <div className="sd-mid-cta-inner">
         <p>Not sure if your claim qualifies? We'll tell you honestly — free, no pressure.</p>
-        <Button to="/contact" size="lg">Get a Free Claim Review</Button>
+        <Button href={INTAKE_FORM_URL} size="lg">Get a Free Claim Review</Button>
       </div>
     </div>
   );
@@ -197,7 +198,7 @@ export default function ServiceDetail() {
             <h1 className="sd-title">{displayTitle}</h1>
             {service.summary && <p className="sd-summary">{service.summary}</p>}
             <div className="sd-hero-cta">
-              <Button to="/contact" size="lg">Get a Free Claim Review</Button>
+              <Button href={INTAKE_FORM_URL} size="lg">Get a Free Claim Review</Button>
               <a href="tel:" className="sd-hero-phone">Or call us directly →</a>
             </div>
           </AnimatedSection>
@@ -243,7 +244,7 @@ export default function ServiceDetail() {
           <AnimatedSection>
             <h2>Ready to fight for your full settlement?</h2>
             <p>We only get paid when you get paid. Free review, no obligation.</p>
-            <Button to="/contact" size="lg">Get a Free Claim Review</Button>
+            <Button href={INTAKE_FORM_URL} size="lg">Get a Free Claim Review</Button>
           </AnimatedSection>
         </div>
       </section>
@@ -266,7 +267,7 @@ export default function ServiceDetail() {
 
       {/* ── Sticky mobile CTA ── */}
       <div className="sd-sticky-cta">
-        <Button to="/contact" size="lg" fullWidth>Get a Free Claim Review</Button>
+        <Button href={INTAKE_FORM_URL} size="lg" fullWidth>Get a Free Claim Review</Button>
       </div>
     </div>
   );

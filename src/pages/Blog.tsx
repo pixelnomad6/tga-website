@@ -1,3 +1,4 @@
+import { INTAKE_FORM_URL } from '../lib/config';
 import { Link } from 'react-router-dom';
 import PageMeta from '../components/PageMeta';
 import AnimatedSection from '../components/AnimatedSection';
@@ -82,7 +83,7 @@ export default function Blog() {
             light
           />
           <div style={{ textAlign: 'center' }}>
-            <Button to="/contact" size="lg">Get a Free Claim Review</Button>
+            <Button href={INTAKE_FORM_URL} size="lg">Get a Free Claim Review</Button>
           </div>
         </div>
       </section>
