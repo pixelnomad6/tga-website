@@ -255,10 +255,8 @@
 }
 
 .wh-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(248, 246, 241, 0.1);
-  border-radius: var(--radius-xl);
-  padding: var(--space-12) var(--space-14);
+  border-left: 3px solid var(--color-gold);
+  padding: var(--space-8) var(--space-12);
   margin-bottom: var(--space-10);
 }
 
