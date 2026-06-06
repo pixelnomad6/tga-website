@@ -269,6 +269,19 @@
   margin-bottom: var(--space-8);
 }
 
+/* Button on gold background — navy border + navy text so it reads clearly */
+.cta-banner .btn {
+  background: transparent;
+  color: var(--color-navy);
+  border: 2px solid var(--color-navy);
+  font-weight: 700;
+}
+
+.cta-banner .btn:hover {
+  background: var(--color-navy);
+  color: var(--color-cream);
+}
+
 /* ── Responsive ── */
 @media (max-width: 1023px) {
   .value-grid,
