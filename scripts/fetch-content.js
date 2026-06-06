@@ -36,8 +36,9 @@ try {
 const OUT_DIR   = path.join(__dirname, '../src/content');
 
 // ── Sheet config ─────────────────────────────────────────────────────────────
-const SHEET_ID  = process.env.VITE_SHEET_ID      ?? 'YOUR_SHEET_ID_HERE';
-const PUB_KEY   = process.env.VITE_SHEET_PUB_KEY ?? '';
+// Uses Apps Script web app — no caching, always returns live Sheet data
+const APPS_SCRIPT_URL = process.env.VITE_APPS_SCRIPT_URL
+  ?? 'https://script.google.com/macros/s/AKfycbzz-55HjHNY0B5uhbE-cwa33smUna5XPnzezYQ97EKE2NZeNcgMlZI0X06yYSK5BmTunQ/exec';
 
 const TABS = [
   'pages',
@@ -48,11 +49,6 @@ const TABS = [
   'team',
   'meta',
 ];
-
-// gviz/tq with cache-busting headers
-function csvUrl(tab) {
-  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${tab}`;
-}
 
 // ── CSV parser — RFC 4180 compliant (handles newlines inside quoted cells) ────
 function parseCsv(text) {
@@ -112,24 +108,19 @@ function parseRow(line) {
 
 // ── Fetch + write ─────────────────────────────────────────────────────────────
 async function fetchTab(tab) {
-  const url  = csvUrl(tab);
+  const url = `${APPS_SCRIPT_URL}?sheet=${encodeURIComponent(tab)}`;
   console.log(`  Fetching: ${tab}`);
-  const res  = await fetch(url, {
-    headers: {
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-    }
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status} for tab "${tab}": ${url}`);
-  const text = await res.text();
-  return parseCsv(text);
+  const res = await fetch(url, { redirect: 'follow' });
+  if (!res.ok) throw new Error(`HTTP ${res.status} for tab "${tab}"`);
+  const data = await res.json();
+  return data;
 }
 
 async function main() {
   await fs.mkdir(OUT_DIR, { recursive: true });
 
-  if (SHEET_ID === 'YOUR_SHEET_ID_HERE') {
-    console.warn('\n⚠  No Sheet ID set — preserving existing content files.\n');
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('YOUR_')) {
+    console.warn('\n⚠  No Apps Script URL set — preserving existing content files.\n');
     return;
   }
 
